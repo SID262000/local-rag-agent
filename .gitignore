@@ -1,1 +1,2 @@
-docs/*
+data/*
+app/__pycache__/

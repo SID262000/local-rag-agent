@@ -1,4 +1,4 @@
-from docling import Document
+from docling.document_converter import DocumentConverter
 from sentence_transformers import SentenceTransformer
 from opensearchpy import OpenSearch
 from app.config import OPENSEARCH_HOST, INDEX_NAME
@@ -8,12 +8,12 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 client = OpenSearch(hosts=[{"host": OPENSEARCH_HOST, "port": 9200}])
 
 def parse_and_store(doc_path):
-    doc = Document.from_file(doc_path)
-    chunks = doc.text.split("\n\n")  # basic chunking
+    doc = DocumentConverter().convert(doc_path)
+    text = doc.document.export_to_text()
+    chunks = text.split("\n\n")  # Split by paragraphs or sections
     embeddings = model.encode(chunks)
 
     for chunk, emb in zip(chunks, embeddings):
-        doc_id = str(uuid.uuid4())
         client.index(index=INDEX_NAME, body={
             "text": chunk,
             "embedding": emb.tolist()
