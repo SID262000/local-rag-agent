@@ -1,5 +1,7 @@
 import sys
 import os
+import requests
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
@@ -36,5 +38,6 @@ question = st.text_input("❓ Ask a question from the uploaded PDF")
 
 if st.button("🧠 Get Answer") and question:
     with st.spinner("Thinking..."):
-        answer = ask_question(question)
+        response = requests.get("http://localhost:8000/ask", params={"q": question})
+        answer = response.json()["answer"]
         st.markdown(f"**Answer:** {answer}")
