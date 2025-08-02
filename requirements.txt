@@ -1,0 +1,9 @@
+huggingface_hub
+fastapi
+uvicorn
+streamlit
+opensearch-py
+sentence-transformers
+docling
+httpx
+python-dotenv
