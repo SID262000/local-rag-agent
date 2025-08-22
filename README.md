@@ -101,16 +101,6 @@ Backend API - FastAPI <br>
 UI - Streamlit <br>
 Env Management - uv, .env <br>
 
-🙋 FAQ
-Q: Can I run this completely offline?
-Yes, after installing dependencies and downloading the model via Ollama.
-
-Q: How large can my documents be?
-They're chunked into paragraphs. You can customize chunking logic in ingest.py.
-
-Q: Can I use another model in Ollama?
-Yes, just change "llama3" to any other supported model name in rag_agent.py.
-
 📜 License
 MIT License
 
