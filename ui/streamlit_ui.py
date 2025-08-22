@@ -39,5 +39,8 @@ question = st.text_input("❓ Ask a question from the uploaded PDF")
 if st.button("🧠 Get Answer") and question:
     with st.spinner("Thinking..."):
         response = requests.get("http://localhost:8000/ask", params={"q": question})
+        if response.status_code != 200:
+            st.error("❌ Error fetching answer. Please try again.")
+            st.stop()
         answer = response.json()["answer"]
         st.markdown(f"**Answer:** {answer}")
